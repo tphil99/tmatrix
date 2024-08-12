@@ -13,7 +13,7 @@ y <- X %*% β + rnorm(3)
 library(tmatrix)
 X <- tmatrix(1,3,NULL,
              2,2,
-			 3,1)
+             3,1)
 β <- tmatrix(2,NULL,
              1)
 y <- β%%X + rnorm(3) # or y <- X %*% β + rnorm(3)
