@@ -20,10 +20,10 @@ y <- β%%X + rnorm(3) # or y <- X %*% β + rnorm(3)
 β_ <- y %% +X %% -(X%%+X) # read from right to left
 ```
 
-+X is t(X)
--X is solve(X)
--I(X) is -X
-y%%X is X%*%y
+- +X is t(X)
+- -X is solve(X)
+- -I(X) is -X
+- y%%X is X%*%y
 
 NB: we do things backwards for two reasons:
 - precedence rules mean we can avoid parentheses this way
