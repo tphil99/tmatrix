@@ -1,26 +1,15 @@
 `tmatrix` (Terse Matrix Operations) provides functions and operators for writing matrix algebra concisely.
 
-For example, consider expressing the following matrix operations in R vs MATLAB
+For example:
 
 ```
+# standard approach
 X <- matrix(c(1,2,3,3,2,1), 3)
 β <- matrix(c(2,1))
 y <- X %*% β + rnorm(3)
 β_ <- solve(t(X)%*%X)%*%t(X)%*%y
 
-# X = [1,3;
-#      2,2;
-#      3,1]
-# β = [2;
-#      1]
-# y = X*β + normrnd(3)
-# β_ = inv(X'*X)*X'*y
-```
-
-MATLAB's syntax is more readable, and we want to bring R closer to this.
-The result will be that we express the same operations as follows:
-
-```
+# tmatrix approach
 library(tmatrix)
 X <- tmatrix(1,3,NULL,
              2,2,
