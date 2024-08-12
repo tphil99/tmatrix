@@ -3,4 +3,8 @@
 S3method("%%",tmatrix)
 S3method("+",tmatrix)
 S3method("-",tmatrix)
+S3method("[",tmatrix)
+S3method(as.matrix,tmatrix)
+S3method(print,tmatrix)
+export(as.tmatrix)
 export(tmatrix)

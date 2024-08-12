@@ -19,10 +19,12 @@ tmatrix <- function(..., terse = TRUE) {
     m
 }
 
+#' @export
 as.tmatrix <- function(mat) {
    structure(mat, class = "tmatrix")
 }
 
+#' @export
 as.matrix.tmatrix <- function(mat) {
   if (length(oldClass(mat)) == 1) unclass(mat)
   else structure(mat, class = setdiff(oldClass(mat, "tmatrix")))

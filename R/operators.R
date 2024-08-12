@@ -14,7 +14,7 @@
     if (missing(Y)) {
         t(X)
     } else {
-        structure(unclass(X)+unclass(Y), class = oldClass(X))
+        structure(NextMethod(X,Y), class = oldClass(X))
     }
 }
 
@@ -53,3 +53,12 @@
 }
 
 # eg. y%%+X%%-(X%%+X)
+
+#' indexing operator
+#'
+#' @param X tmatrix
+#' @param ... indices
+#' @export
+`[.tmatrix` <- function (x, i, j, ..., drop = FALSE) {
+    structure(`[`(unclass(x), i, j, ..., drop = drop), class = oldClass(x))
+}
