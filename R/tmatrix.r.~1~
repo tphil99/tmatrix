@@ -1,0 +1,73 @@
+#' Create a tmatrix
+#'
+#' @param ... elements to include (with NULL terminating the first row)
+#' @param terse if FALSE, create a matrix (not tmatrix)
+#' @param wrong test test test
+#' @return blah
+#' @export
+#' @examples
+#' tmatrix(1,2,NULL,
+#'         3,4)
+tmatrix <- function(..., terse = TRUE) {
+    l <- list(...)
+    ncol <- which(sapply(l, is.null)) - 1
+    l[[ncol+1]] <- NULL
+    m <- matrix(as.numeric(l), ncol = ncol, byrow=TRUE)
+    if (terse) attr(m, "class") <- "tmatrix"
+    m
+}
+
+as.tmatrix <- function(mat) {
+   structure(mat, class = "tmatrix")
+}
+
+as.matrix.tmatrix <- function(mat) {
+  if (length(oldClass(mat)) == 1) unclass(mat)
+  else structure(mat, class = setdiff(oldClass(mat, "tmatrix")))
+}
+
+#' make unary + a transpose operator
+#' 
+#' @export
+#' @examples
+#' x <- tmatrix(1,2,NULL,3,4,5,6)
+#' +x
+`+.tmatrix` <- function(X,Y) {
+    if (missing(Y)) {
+        t(X)
+    } else {
+        structure(unclass(X)+unclass(Y), class = oldClass(X))
+    }
+}
+
+#' make unary- an inverse operator
+# 
+# NB: the default unary- is potentially useful, use -I(X) to use it
+#' @export
+#' @examples
+#' x <- tmatrix(1,2,NULL,3,4)
+#' -x
+#' -I(x)
+`-.tmatrix` <- function(X,Y) {
+    if (missing(Y)) {
+        if (oldClass(X)[[1]] == "AsIs") {
+           structure(-unclass(X), class = tail(oldClass(X), -1))
+        } else {
+            structure(solve(X), class = oldClass(X))
+        }
+    } else {
+        structure(unclass(X)+unclass(Y), class = oldClass(X))
+    }
+}
+
+#' make %% a matmul operator that acts in reverse
+# 
+#' @export
+`%%.tmatrix` <- function(X,Y) {
+    structure(unclass(Y)%*%unclass(X), class = oldClass(X))
+}
+
+# eg. y%%+X%%-(X%%+X)
+
+
+

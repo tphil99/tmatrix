@@ -1,0 +1,1 @@
+print.tmatrix <- function(x) {print(unclass(x)); cat("class: tmatrix\n")}
